@@ -14,9 +14,6 @@
 
 
 
-
-
-
 import rclpy
 from rclpy.node import Node
 from turtlesim.msg import Pose
@@ -31,26 +28,21 @@ class TurtleDistance(Node):
 
     def __init__(self):
         super().__init__('turtle_distance')
-        self.dist_pub = self.create_publisher(Float64, '/distance', 10)
-        self.pose_sub = self.create_subscription(Pose, '/turtle1/pose', self.pose_callback, 10)
+        # self.dist_pub = self.create_publisher(type, topic, 10)
+        # self.pose_sub = self.create_subscription(type, topic, self.pose_callback, 10)
 
         self.last_pose = None
         self.accumulated_distance = 0.0
 
-        self.timer = self.create_timer(0.5, self.publish_distance)
+        # Distance can be published at equal intervals
+        # self.timer = self.create_timer(0.5, self.publish_distance)
     
     def pose_callback(self, msg: Pose):
-        if self.last_pose is None:
-            self.last_pose = msg
-        else: 
-            dist = distance_between_poses(self.last_pose, msg)
-            self.last_pose = msg
-            self.accumulated_distance += dist
+        ### Get the pose and sum up the distance
+        pass
 
     def publish_distance(self):
-        msg = Float64()
-        msg.data = self.accumulated_distance
-        self.dist_pub.publish(msg)
+        pass
 
     def run(self):
         while rclpy.ok():

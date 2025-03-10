@@ -21,16 +21,15 @@ class RandomNumbers(Node):
 
     def __init__(self):
         super().__init__('random_Numbers')
-        self.publisher_ = self.create_publisher(Int64, 'number', 10)
+        # self.publisher_ = self.create_publisher(type, topic, 10)
         timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         seed(1337)
 
     def timer_callback(self):
-        msg = Int64()
-        msg.data = randint(0, 10)
-        self.publisher_.publish(msg)
-        self.get_logger().info(f"Publishing number {msg.data}")
+        ### Create message and publish it
+        # self.get_logger().info(f"Publishing number {value}")
+        pass
 
 
 def main(args=None):

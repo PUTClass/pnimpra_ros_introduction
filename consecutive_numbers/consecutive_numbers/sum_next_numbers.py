@@ -24,37 +24,29 @@ class SumNextNumbers(Node):
         super().__init__('sum_next_numbers')
         
         self.numbers = []
-        self.subscription_ = self.create_subscription(
-            Int64,
-            'number',
-            self.listener_callback,
-            10)
-        
-        self.publisher_ = self.create_publisher(Int64, 'sum_number', 10)
+        # self.subscription = self.create_subscription(type, topic, self.listener_callback, 10)
+        # self.publisher = self.create_publisher(type, topic, 10)
         
 
 
     def listener_callback(self, msg: Int64):
-        if len(self.numbers) < self.NUMBERS_IN_QUEUE:
-            self.numbers.append(msg.data)
-        else:
-            self.numbers = self.numbers[1:]
-            self.numbers.append(msg.data)
-        
-        sum_msg = Int64()
-        sum_msg.data = self.sum_numbers
-        self.publisher_.publish(sum_msg)
-        self.get_logger().info(f"Publishing sum of numbers: {sum_msg.data}")
+        pass
+        # Store consecutive number in a list, calculate the sum and publish it
+        # It's important to track the number of numbers in the list
+       
+        # self.get_logger().info(f"Publishing sum of numbers: {sum}")
+    
+    '''
+    Example function to calculate the sum of numbers:
+    '''
+    # def sum_numbers(self):
+    #     sum = 0
 
-    @property
-    def sum_numbers(self):
-        sum = 0
+    #     if len(self.numbers) > 0:
+    #         for number in self.numbers:
+    #             sum = sum + number
 
-        if len(self.numbers) > 0:
-            for number in self.numbers:
-                sum = sum + number
-
-        return sum
+    #     return sum
 
         
         
@@ -62,14 +54,10 @@ class SumNextNumbers(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-
     sum_node = SumNextNumbers()
-
     rclpy.spin(sum_node)
 
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
+
     sum_node.destroy_node()
     rclpy.shutdown()
 

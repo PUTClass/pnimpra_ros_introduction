@@ -20,8 +20,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'turtle_distance = turtlesim_operations.turtle_distance:main',
-            'turtle_trajectory = turtlesim_operations.turtle_trajectory:main',
         ],
     },
 )

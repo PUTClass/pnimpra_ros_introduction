@@ -14,7 +14,6 @@
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Int64
 from geometry_msgs.msg import Twist
 import threading
 import math
@@ -23,37 +22,35 @@ class TurtleTrajectory(Node):
 
     def __init__(self):
         super().__init__('turtle_trajectory')
-        self.traj_pub = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
-        timer_period = 2.0  # seconds
-        self.rate = self.create_rate(1/timer_period)
+        # self.traj_pub = self.create_publisher(type, topic, 10)
+        
+        # Every move command can be executed at intervals
+        # timer_period = 2.0  # seconds
+        # self.rate = self.create_rate(1/timer_period)
 
     def run(self):
         while rclpy.ok():
-            for i in range(4):
-                self.go_forward()
-                self.rate.sleep()
-                self.rotate_left()
-                self.rate.sleep()
+            ### A sequence of moves to execute/publish can be written here.
+            pass
 
-    def rotate_left(self):
-        trajectory_msg = Twist()
-        trajectory_msg.angular.z = math.pi/2
-        self.traj_pub.publish(trajectory_msg)
+    '''
+    geometry_msgs/msg/Twist
+    # This expresses velocity in free space broken into its linear and angular parts.
 
-    def rotate_right(self):
-        trajectory_msg = Twist()
-        trajectory_msg.angular.z = -math.pi/2
-        self.traj_pub.publish(trajectory_msg)
-
-    def go_forward(self):
-        trajectory_msg = Twist()
-        trajectory_msg.linear.x = 2.0
-        self.traj_pub.publish(trajectory_msg)
-
-    def go_backward(self):
-        trajectory_msg = Twist()
-        trajectory_msg.linear.x = -2.0
-        self.traj_pub.publish(trajectory_msg)
+    Vector3  linear
+        float64 x
+        float64 y
+        float64 z
+    Vector3  angular
+        float64 x
+        float64 y
+        float64 z
+    '''
+    # def sample_twist_message(self, angular, linear):
+    #     trajectory_msg = Twist()
+    #     trajectory_msg.angular.z = rotation
+    #     trajectory_msg.linear.z = linear_movement
+        
 
 def main(args=None):
     rclpy.init(args=args)

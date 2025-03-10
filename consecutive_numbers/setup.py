@@ -20,8 +20,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'generate_random_numbers = consecutive_numbers.random_numbers:main',
-            'sum_next_numbers = consecutive_numbers.sum_next_numbers:main',
         ],
     },
 )
